@@ -3,19 +3,15 @@ const fs = require("fs");
 
 // Function to format raw data
 function formatRawData(address, value1, value2) {
-    // Remove '0x' prefix if present
     address = address.toLowerCase().replace(/^0x/, "");
 
-    // Ensure address is 40 characters (20 bytes)
     if (address.length !== 40) {
         throw new Error("Invalid Ethereum address");
     }
 
-    // Convert values to 16-byte (32-char) hex strings
     let value1Hex = value1.toString(16).padStart(32, "0");
     let value2Hex = value2.toString(16).padStart(32, "0");
 
-    // Construct the final raw data
     let rawData = `0x56591d596f707374` + "00".repeat(56) +  
                   address + "00".repeat(12) +
                   value1Hex + "00".repeat(56) +
@@ -33,11 +29,9 @@ const rl = readline.createInterface({
 // Prompt user for Ethereum address
 rl.question("Paste Ethereum Address: ", (inputAddress) => {
     try {
-        // Ensure hexadecimal values are correctly interpreted
         let value1 = BigInt("0x16332a97b3fea100");
         let value2 = BigInt("0x16345785d8a0000");
 
-        // Generate formatted raw data
         let rawData = formatRawData(inputAddress, value1, value2);
         
         console.log("\nGenerated Raw Data:\n", rawData);
@@ -51,6 +45,8 @@ rl.question("Paste Ethereum Address: ", (inputAddress) => {
             } else {
                 console.log("❌ Data not saved.");
             }
+
+            console.log("Thank you Tcode");  // Added this line
             rl.close();
         });
 
